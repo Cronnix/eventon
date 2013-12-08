@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Sebastian Westberg <sebastianostbrink@gmail.com>
+ */
 
 namespace Classtration;
 
