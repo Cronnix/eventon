@@ -1,10 +1,10 @@
 <?php
 /**
- * @author [Sebastian Westberg] <[sebastianostbrink@gmail.com]>
+ * @author Sebastian Westberg <sebastianostbrink@gmail.com>
  */
 
 require_once('classes/user/user.php');
-if ($_POST)
+if ( ! empty($_POST['addUser']))
 {
 
 	$user = Classtration\User::create(
@@ -38,5 +38,5 @@ if ($_POST)
 	<input type="text" name="type" id="type" placeholder="Type" value="<?php echo $_POST["type"] ?: $_POST["type"];?>">
 	<input type="text" name="password" id="password" placeholder="Password">
 	<input type="text" name="repeatPassword" id="repeatPassword" placeholder="Repeat password">	
-	<input type="submit" value="Add user">
+	<input type="submit" name="addUser" id="addUser" value="Add user">
 </form>

@@ -14,7 +14,7 @@ class User_Crud extends User_Base
 	/**
 	 * Validates and sets the User object properties
 	 * @param  array  $userData  data sent from the user creation form
-	 * @param  array  $settings  validate options for the properties
+	 * @param  array  $settings  validation options for properties
 	 * @return object 			 a new user object
 	 */
 	public static function create($userData, $settings = array())
@@ -22,7 +22,7 @@ class User_Crud extends User_Base
 		$user = new User;
 
 		// Validate and set the client data
-		if ($userData = self::validate($userData, $settings))
+		if ($userData = parent::validate($userData, $settings))
 		{
 			$user->fname = $userData['fname'];
 			$user->lname = $userData['lname'];
@@ -45,19 +45,77 @@ class User_Crud extends User_Base
 	}
 
 	/**
+	 * Validates and updates existing users 
+	 * @param  array   $userData data sent from the user edit form
+	 * @param  array   $settings validation options for properties
+	 * @param  int     $id       id of the user 
+	 */
+	public static function edit($userData, $settings = array(), $id = null)
+	{
+		if (is_numeric($id))
+		{
+			$user = new User;
+
+			$oldUserData = $user->view($id)[0];
+
+			// Validate and set the client data
+			if ($userData = parent::validate($userData, $settings))
+			{
+				$user->fname = $userData['fname'];
+				$user->lname = $userData['lname'];
+				$user->ssn = $userData['ssn'];
+				$user->email = $userData['email'];
+				$user->phone = $userData['phone'];
+				$user->type = $userData['type'];
+
+				/** 
+				 * Check if the posted values for first- and last
+				 * name matches the old ones, or a new username has
+				 * to be generated for this user
+				 */
+				$user->username = $oldUserData->user_firstname == $userData['fname'] && $oldUserData->user_lastname == $userData['lname'] ? $oldUserData->user_username : $user->createUsername($userData['fname'], $userData['lname']);
+				$user->hash = $oldUserData->user_password;
+				$user->save($id);
+			}
+		}
+	}
+
+	/**
+	 * Deletes a user
+	 * @param  int  $id  user id
+	 */
+	public function delete($id = null) 
+	{
+		$db = $this->db;
+
+		if (is_numeric($id))
+		{
+			try
+			{
+				$sth = $db->prepare("DELETE FROM tbl_user WHERE user_id = {$id}");
+				$sth->execute();
+			}
+			catch (PDOException $e)
+			{
+				die($e->getMessage());
+			}
+		}
+	}
+
+	/**
 	 * Grabs user data from the Db
 	 * @param  int 	  $id  user id
 	 * @return array       an array of User objects
 	 */
-	private function get($id = null)
+	public function view($id = null)
 	{
 		$db = $this->db;
 
 		try
 		{
-			if ($id)
+			if (is_numeric($id))
 			{
-				$sth = $db->prepare("SELECT * FROM tbl_user WHERE id = {$id}");
+				$sth = $db->prepare("SELECT * FROM tbl_user WHERE user_id = {$id}");
 			}
 			else
 			{
@@ -83,25 +141,31 @@ class User_Crud extends User_Base
 
 	/**
 	 * Attempts to save a User object
-	 * TODO: check if an id is sent as a parameter and if so
-	 * use and update instead of insertion
 	 */
-	private function save()
+	private function save($id = null)
 	{
 		$db = $this->db;
 		try
 		{
-			$sth = $db->prepare("INSERT INTO tbl_user (user_firstname, user_lastname, user_email, user_phonenumber, user_username, user_password, usertype_id)
-			value (?, ?, ?, ?, ?, ?, ?)");
+			if ($id)
+			{
+				$sth = $db->prepare("UPDATE tbl_user SET user_firstname = :fname, user_lastname = :lname, user_email = :email, user_phonenumber = :phone, user_username = :username, user_password = :hash, usertype_id = :type, user_ssn = :ssn WHERE user_id = :id");
+				$sth->bindParam(':id', $id, \PDO::PARAM_INT);
+			}
+			else {
+				$sth = $db->prepare("INSERT INTO tbl_user (user_firstname, user_lastname, user_email, user_phonenumber, user_username, user_password, usertype_id, user_ssn)
+				value (:fname, :lname, :email, :phone, :username, :hash, :type, :ssn)");
+			}
 			
 			// Binds properties to the query and runs it
-			$sth->bindParam(1, $this->fname);
-			$sth->bindParam(2, $this->lname);
-			$sth->bindParam(3, $this->email);
-			$sth->bindParam(4, $this->phone);
-			$sth->bindParam(5, $this->username);
-			$sth->bindParam(6, $this->hash);
-			$sth->bindParam(7, $this->type);
+			$sth->bindParam(':fname', $this->fname, \PDO::PARAM_STR, 40);
+			$sth->bindParam(':lname', $this->lname, \PDO::PARAM_STR, 40);
+			$sth->bindParam(':email', $this->email, \PDO::PARAM_STR, 50);
+			$sth->bindParam(':phone', $this->phone, \PDO::PARAM_STR, 40);
+			$sth->bindParam(':username', $this->username, \PDO::PARAM_STR, 10);
+			$sth->bindParam(':hash', $this->hash, \PDO::PARAM_STR, 60);
+			$sth->bindParam(':type', $this->type, \PDO::PARAM_INT);
+			$sth->bindParam(':ssn', $this->ssn, \PDO::PARAM_STR, 12);
 			$sth->execute();
 		}
 		catch (\PDOException $e)
@@ -112,42 +176,4 @@ class User_Crud extends User_Base
 		// The affected row's id
 		$this->id = $db->lastInsertId();
 	}
-
-	/**
-	 * Attempts to call the validation methods for user properties
-	 * @param  array  $userData  data to test
-	 * @param  array  $settings  validation options
-	 * @return array           
-	 */
-	private static function validate($userData, $settings)
-	{
-		$validate = new util\UserValidation($settings);
-		try
-		{
-			$validate->name($userData['fname']);
-			$validate->name($userData['lname']);
-			$validate->ssn($userData['ssn']);
-			$validate->email($userData['email']);
-			$validate->phone($userData['phone']);
-			$validate->type($userData['type']);
-
-			// Check whether we have client created passwords or not
-			if (is_array($userData['password'])) 
-			{
-				$validate->password($userData['password']);
-			}
-			// Or we generate a new password
-			else
-			{
-				$userData['password'] = parent::generateString(8);
-			}
-		}
-		catch (\Exception $e)
-		{
-			die($e->getMessage());
-		}
-		return $userData;
-	}
-
-
 }
