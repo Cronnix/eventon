@@ -34,7 +34,6 @@ if ($id)
 {
 	$user = new Classtration\User;
 	foreach ($user->view($id) as $viewUser);
-
 	var_dump($viewUser);
 }
 ?>

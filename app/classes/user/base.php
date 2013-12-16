@@ -5,6 +5,9 @@
 
 namespace Classtration;
 
+/**
+ * Base class for users
+ */
 class User_Base
 {
 	// User properties

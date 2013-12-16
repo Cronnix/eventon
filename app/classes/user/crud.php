@@ -110,37 +110,56 @@ class User_Crud extends User_Base
 	public function view($id = null)
 	{
 		$db = $this->db;
+		$query = "
+			SELECT a.*, b.program_id 
+			FROM tbl_user
+			AS a
+			LEFT JOIN tbl_participant
+			AS b
+				ON a.user_id = b.user_id
+		";
 
 		try
 		{
 			if (is_numeric($id))
 			{
-				$sth = $db->prepare("SELECT * FROM tbl_user WHERE user_id = {$id}");
+				$sth = $db->prepare("
+					{$query} 
+					WHERE a.user_id = {$id}
+				");
 			}
 			else
 			{
-				$sth = $db->prepare("SELECT * FROM tbl_user");
+				$sth = $db->prepare("
+					{$query}
+				");
 			}
 			$sth->execute();
+
+			$result = array();
+			$sth->setFetchMode(\PDO::FETCH_OBJ);
+
+
+			// Every object that's returned appends to an array
+			while ($obj = $sth->fetch())
+			{
+				$result[] = (object)$obj;
+			}
+
 		}
 		catch (PDOException $e)
 		{
 			die($e->getMessage());
 		}
 
-		$result = array();
-		$sth->setFetchMode(\PDO::FETCH_CLASS, 'User');
-
-		// Every row that's returned appends to an array and is type-casted to an object
-		while ($obj = $sth->fetch())
-		{
-			$result[] = (object)$obj;
-		}
 		return $result;
 	}
 
 	/**
-	 * Attempts to save a User object
+	 * Attempts to save a User object. When a user id
+	 * is provided it will be used to update that
+	 * specific user. If the id parameter is left out,
+	 * the insert statement will be used instead
 	 */
 	private function save($id = null)
 	{
@@ -157,7 +176,7 @@ class User_Crud extends User_Base
 				value (:fname, :lname, :email, :phone, :username, :hash, :type, :ssn)");
 			}
 			
-			// Binds properties to the query and runs it
+			// Binds properties to the query
 			$sth->bindParam(':fname', $this->fname, \PDO::PARAM_STR, 40);
 			$sth->bindParam(':lname', $this->lname, \PDO::PARAM_STR, 40);
 			$sth->bindParam(':email', $this->email, \PDO::PARAM_STR, 50);
@@ -166,6 +185,7 @@ class User_Crud extends User_Base
 			$sth->bindParam(':hash', $this->hash, \PDO::PARAM_STR, 60);
 			$sth->bindParam(':type', $this->type, \PDO::PARAM_INT);
 			$sth->bindParam(':ssn', $this->ssn, \PDO::PARAM_STR, 12);
+
 			$sth->execute();
 		}
 		catch (\PDOException $e)
@@ -175,5 +195,41 @@ class User_Crud extends User_Base
 
 		// The affected row's id
 		$this->id = $db->lastInsertId();
+	}
+
+	/**
+	 * Returns the block associated with the user id
+	 * @param  int    $id  user id
+	 * @return object
+	 */
+	public function get_block($id = null)
+	{
+		$db = $this->db;
+
+		if (is_numeric($id)) 
+		{
+			try 
+			{
+				$sth = $db->prepare("
+					SELECT * 
+					FROM tbl_block
+					WHERE block_id = {$id}
+					LIMIT 1
+				");
+				$sth->execute();
+
+				$sth->setFetchMode(\PDO::FETCH_OBJ);
+			}
+			catch (\PDOException $e)
+			{
+				die($e->getMessage());
+			}
+
+			return $sth->fetch();
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
