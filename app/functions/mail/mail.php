@@ -21,4 +21,15 @@ foreach ($emailArr as $email)
 	}
 }
 
+function updatePass($email, $username, $password)
+//if function is to generate an email for one user, send email automatically
+  {
+  //send email
+
+	$subject = 'Jensen password update';
+	$message = 'Hello ' . $username . ', your password has been updated to: ' . $password;
+
+	mail($email, $subject, $message);
+  }
+
 ?>
