@@ -3,7 +3,7 @@ require_once('functions/block_event/dbconnect.php');
 ?>
 <html>
 <head>
-<script src="delete.js"></script>
+<script src="assets/js/delete.js"></script>
 </head>
 <body>
 <div>
