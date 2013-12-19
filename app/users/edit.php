@@ -3,7 +3,7 @@
  * @author Sebastian Westberg <sebastianostbrink@gmail.com>
  */
 
-require_once('../functions/login/loggedin.php');
+//require_once('../functions/login/loggedin.php');
 require_once('../classes/user/user.php');
 
 $id = is_numeric($_REQUEST['id']) ? $_REQUEST['id'] : false; 
@@ -70,9 +70,9 @@ if ($id)
 					<h3>Management</h3>
 					<nav>
 						<ul>
-							<li><span class="glyphicon glyphicon-star"></span><a href="#">Blocks</a></li>
+							<li><span class="glyphicon glyphicon-star"></span><a href="../blocks.php">Blocks</a></li>
 							<li class="current"><a href="view.php"><span class="glyphicon glyphicon-user"></span>Users</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-time"></span>Events</a></li>
+							<li><a href="../events.php"><span class="glyphicon glyphicon-time"></span>Events</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-envelope"></span>E-mails</a></li>
 						</ul>
 					</nav>

@@ -46,7 +46,7 @@
 			<div id="content" class="col-md-9">
 				<?php 
 
-				require "/functions/login/loggedin.php";
+				//require "/functions/login/loggedin.php";
 
 				$db_username="sql425233";
 				$db_password="tC7!qD6*";

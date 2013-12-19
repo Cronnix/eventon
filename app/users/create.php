@@ -6,6 +6,9 @@
 require_once('../classes/user/user.php');
 $success = false;
 
+$userData = new Classtration\User;
+$usertypes = $userData->get_usertypes();
+
 if ( ! empty($_POST['addUser']))
 {
 
@@ -64,9 +67,9 @@ if ( ! empty($_POST['addUser']))
 					<h3>Management</h3>
 					<nav>
 						<ul>
-							<li><span class="glyphicon glyphicon-star"></span><a href="#">Blocks</a></li>
+							<li><span class="glyphicon glyphicon-star"></span><a href="../blocks.php">Blocks</a></li>
 							<li class="current"><a href="view.php"><span class="glyphicon glyphicon-user"></span>Users</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-time"></span>Events</a></li>
+							<li><a href="../events.php"><span class="glyphicon glyphicon-time"></span>Events</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-envelope"></span>E-mails</a></li>
 						</ul>
 					</nav>
@@ -94,8 +97,15 @@ if ( ! empty($_POST['addUser']))
 						<input type="text" name="ssn" id="ssn" placeholder="Social security number" value="<?php echo $_POST["ssn"] ?: $_POST["ssn"];?>">
 						<input type="text" name="email" id="email" placeholder="E-mail" value="<?php echo $_POST["email"] ?: $_POST["email"];?>">
 						<input type="text" name="phone" id="phone" placeholder="Phone" value="<?php echo $_POST["phone"] ?: $_POST["phone"];?>">
-						<input type="text" name="type" id="type" placeholder="Type" value="<?php echo $_POST["type"] ?: $_POST["type"];?>">
-						<!--<input type="text" name="password" id="password" placeholder="Password">
+						<select name="type">
+							<?php
+							foreach ($usertypes as $usertype) :
+							?>
+							<option value="<?php echo $usertype->usertype_id; ?>" <?php echo $usertype->usertype_id == $viewUser->usertype_id ? 'selected="selected"' : ''  ?>><?php echo $usertype->usertype_name; ?></option>
+							<?php
+							endforeach;
+							?>
+						</select>						<!--<input type="text" name="password" id="password" placeholder="Password">
 						<input type="text" name="repeatPassword" id="repeatPassword" placeholder="Repeat password">-->
 						<input type="submit" name="addUser" class="btn btn-primary" id="addUser" value="Add user">
 					</form>

@@ -3,8 +3,10 @@
  * @author Sebastian Westberg <sebastianostbrink@gmail.com>
  */
 
+session_start();
 
-require_once('../functions/login/loggedin.php');
+// Relative header location screws stuff up...
+// require_once('../functions/login/loggedin.php');
 require_once('../classes/user/user.php');
 
 $id = is_numeric($_REQUEST['id']) ? $_REQUEST['id'] : false; 
@@ -28,7 +30,7 @@ $users = new Classtration\User;
 			</div>
 			<div id="action-bar" class="col-md-9 clearfix">
 				<div class="admin-info pull-right">
-					<span><span class="glyphicon glyphicon-lock"></span>Logged in as <strong>Sebastian</strong></span>
+					<span><span class="glyphicon glyphicon-lock"></span>Logged in as <strong><?php echo $_SESSION['user_username']; ?></strong></span>
 				</div>
 				<ul class="button-nav">
 					<li><a href="create.php"><button class="btn btn-success">Create User</button></a>
