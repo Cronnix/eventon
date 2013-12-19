@@ -8,6 +8,8 @@ body {
 }
 
 .btn-nav {
+    border-top: 1px dotted #ccc;
+    padding-top: 10px;
     display: block;
 }
 .btn-nav button {

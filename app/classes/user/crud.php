@@ -81,6 +81,7 @@ class User_Crud extends User_Base
 				 */
 				$user->username = $oldUserData->user_firstname == $userData['fname'] && $oldUserData->user_lastname == $userData['lname'] ? $oldUserData->user_username : $user->createUsername($userData['fname'], $userData['lname']);
 				$user->hash = $oldUserData->user_password;
+				$user->id = $oldUserData->user_id;
 				$user->save($id);
 			}
 		}

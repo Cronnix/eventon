@@ -94,6 +94,7 @@ if ($id)
 							<input type="submit" name="editUser" class="btn btn-primary" id="editUser" value="Save User">
 							<button class="btn btn-default">Edit User Role</button>
 							<button class="btn btn-default">Generate New Password</button> 
+							<button class="btn btn-default"><a href="../feedback.php?userid=<?php echo is_numeric($_GET['id']) ? $_GET['id'] : 1; ?>">Feedback</a></button> 
 						</div>
 					</form>
 				</div>
