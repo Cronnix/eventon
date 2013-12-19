@@ -63,7 +63,6 @@ class User_Crud extends User_Base
 			$user = new User;
 
 			$oldUserData = $user->view($id)[0];
-
 			// Validate and set the client data
 			if ($userData = parent::validate($userData, $settings))
 			{
@@ -83,6 +82,7 @@ class User_Crud extends User_Base
 				$user->hash = $oldUserData->user_password;
 				//$user->id = $oldUserData->user_id;
 				$user->save($id);
+				header("Location: {$_SERVER['HTTP_REFERER']}");
 			}
 		}
 	}

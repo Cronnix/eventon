@@ -89,7 +89,7 @@ class User_Base
 			$validate->type($userData['type']);
 
 			// Check whether we have client created passwords or not
-			if (is_array($userData['password'])) 
+			if (isset($userData['password']) && is_array($userData['password'])) 
 			{
 				$validate->password($userData['password']);
 			}

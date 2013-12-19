@@ -30,7 +30,7 @@ $users = new Classtration\User;
 			</div>
 			<div id="action-bar" class="col-md-9 clearfix">
 				<div class="admin-info pull-right">
-					<span><span class="glyphicon glyphicon-lock"></span>Logged in as <strong><?php echo $_SESSION['user_username']; ?></strong></span>
+					<span><span class="glyphicon glyphicon-lock"></span>Logged in as <strong><?php if (isset($_SESSION['user_username'])) echo $_SESSION['user_username'] ; ?></strong></span>
 				</div>
 				<ul class="button-nav">
 					<li><a href="create.php"><button class="btn btn-success">Create User</button></a>

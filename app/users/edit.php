@@ -5,8 +5,7 @@
 
 require_once('../classes/user/user.php');
 
-$id = isset($_REQUEST['id']) && is_numeric($_REQUEST['id']) ? $_REQUEST['id'] : false; 
-
+$id = $_REQUEST['id'];
 if ( ! empty($_POST['editUser']))
 {
 	$user = Classtration\User::edit(
@@ -29,8 +28,6 @@ if ( ! empty($_POST['editUser']))
 		$id,
 		true
 	);
-
-	var_dump($user);
 }
 if ($id)
 {
@@ -102,6 +99,7 @@ if ($id)
 							endforeach;
 							?>
 						</select>
+						<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
 						<div class="btn-nav">
 							<input type="submit" name="editUser" class="btn btn-primary" id="editUser" value="Save User">
 							<button class="btn btn-default">Edit User Role</button>
