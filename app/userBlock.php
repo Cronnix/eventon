@@ -92,7 +92,7 @@ include 'functions/block_event/dbconnect.php';
 				$insert_query = "INSERT INTO tbl_participant(user_id,program_id) VALUES ('$user_id','$block_id')";
 				mysql_query($insert_query) or die (mysql_error());
 
-				header("location:test.php?");
+				header("location:userBlock.php?");
 			}
 			}
 			?>
