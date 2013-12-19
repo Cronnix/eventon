@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Johanna Lind <Johannna182@hotmail.com>
+ */
 	session_start();
 	
 	$error = "";

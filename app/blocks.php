@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <?php
+/**
+ * @author Johanna Lind <Johannna182@hotmail.com>
+ */
+include 'functions/login/loggedin.php';
 include 'functions/block_event/dbconnect.php';
+
 ?>
 <html lang="en">
 <head>

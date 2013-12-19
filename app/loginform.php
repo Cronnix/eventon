@@ -19,6 +19,9 @@
 				</fieldset>
 			</form>
 <?php
+/**
+ * @author Johanna Lind <Johannna182@hotmail.com>
+ */
 include 'functions/login/dbconnect.php';
 
 if (isset($_GET['function'])) {

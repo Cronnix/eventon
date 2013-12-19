@@ -1,13 +1,8 @@
 <?php
-header('Content-type: text/html; charset=ISO-8859-1'); //swedish
-session_start(); //enable the use of $_SESSION variables
-
-//if not logged in: go to login page
-if ($_SESSION['loggedin'] == false) {
-	header("location:functions/login/login.php");
-}
-
-//include db connection file
+/**
+ * @author Johanna Lind <Johannna182@hotmail.com>
+ */
+include 'functions/login/loggedin.php';
 include 'dbconnect.php';
 ?>
 
@@ -24,7 +19,6 @@ include 'dbconnect.php';
       <a href="functions/login/logout.php">[Log out]</a>
     </div>
 <?php
-//close connection to db
 mysql_close();
 ?>
     

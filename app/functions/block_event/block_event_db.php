@@ -1,4 +1,8 @@
 <?php   
+/**
+ * @author Johanna Lind <Johannna182@hotmail.com>
+ */
+include '../login/loggedin.php';
 include 'dbconnect.php';
 
 //Blocks
