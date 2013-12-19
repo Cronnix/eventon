@@ -52,7 +52,7 @@ include 'functions/block_event/dbconnect.php';
 				</aside>
 			</div>
 			<div id="content" class="col-md-9">	
-			<form id="eventform" name="eventform" action="test.php?function=userBlock"  method="POST">
+			<form id="eventform" name="eventform" action="userBlock.php?function=userBlock"  method="POST">
 				<select id="block_id" name="block_id">
 					<option value="">Choose Block</option>
 						<?php
