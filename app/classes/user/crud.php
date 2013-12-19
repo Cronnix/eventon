@@ -32,17 +32,17 @@ class User_Crud extends User_Base
 			$user->type = $userData['type'];
 			$user->password = $userData['password'];
 			$user->username = $user->createUsername($userData['fname'], $userData['lname']);
-			$user->hash = $user->generateHash(list($userData['password']) = $password);
+			$user->hash = $user->generateHash($user->password);
 			$user->save();
 		}
 
 		// Don't return the Db object, password hash or validation options
 		unset($user->db);
-		unset($user->hash);
+		//unset($user->hash);
 		unset($user->validation);
 
 		// Send e-mail with login information to the user
-		require_once('functions/mail/mail.php');
+		require_once('../functions/mail/mail.php');
 
 		// Can't send mail without a mail server setup
 		//generateMail($user->email, $user->username, $user->password);
@@ -173,6 +173,7 @@ class User_Crud extends User_Base
 	private function save($id = null)
 	{
 		$db = $this->db;
+
 		try
 		{
 			if ($id)
@@ -180,7 +181,8 @@ class User_Crud extends User_Base
 				$sth = $db->prepare("UPDATE tbl_user SET user_firstname = :fname, user_lastname = :lname, user_email = :email, user_phonenumber = :phone, user_username = :username, user_password = :hash, usertype_id = :type, user_ssn = :ssn WHERE user_id = :id");
 				$sth->bindParam(':id', $id, \PDO::PARAM_INT);
 			}
-			else {
+			else 
+			{
 				$sth = $db->prepare("INSERT INTO tbl_user (user_firstname, user_lastname, user_email, user_phonenumber, user_username, user_password, usertype_id, user_ssn)
 				value (:fname, :lname, :email, :phone, :username, :hash, :type, :ssn)");
 			}

@@ -4,6 +4,8 @@
  */
 
 require_once('../classes/user/user.php');
+$success = false;
+
 if ( ! empty($_POST['addUser']))
 {
 
@@ -25,6 +27,11 @@ if ( ! empty($_POST['addUser']))
 			'min_specials' => 0,
 		)
 	);
+	
+	if ($user->user_id !== 0)
+	{
+		$success = true;
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -72,7 +79,14 @@ if ( ! empty($_POST['addUser']))
 				</aside>
 			</div>
 			<div id="content" class="col-md-9">
-				<h2>Listing all users</h2>
+				<?php 
+				if ($success === true) :
+				?>
+				<div class="alert alert-success">User "<?php echo $user->username; ?>" with password "<?php echo $user->password; ?>" successfully added!</div>
+				<?php
+				endif;
+				?>
+				<h2>Create a New User</h2>
 				<div class="entry">
 					<form method="post" action="<?php echo $_SERVER['self']; ?>">
 						<input type="text" name="fname" id="fname" placeholder="First name" value="<?php echo $_POST["fname"] ?: $_POST["fname"];?>">
@@ -81,8 +95,8 @@ if ( ! empty($_POST['addUser']))
 						<input type="text" name="email" id="email" placeholder="E-mail" value="<?php echo $_POST["email"] ?: $_POST["email"];?>">
 						<input type="text" name="phone" id="phone" placeholder="Phone" value="<?php echo $_POST["phone"] ?: $_POST["phone"];?>">
 						<input type="text" name="type" id="type" placeholder="Type" value="<?php echo $_POST["type"] ?: $_POST["type"];?>">
-						<input type="text" name="password" id="password" placeholder="Password">
-						<input type="text" name="repeatPassword" id="repeatPassword" placeholder="Repeat password">	
+						<!--<input type="text" name="password" id="password" placeholder="Password">
+						<input type="text" name="repeatPassword" id="repeatPassword" placeholder="Repeat password">-->
 						<input type="submit" name="addUser" class="btn btn-primary" id="addUser" value="Add user">
 					</form>
 				</div>
