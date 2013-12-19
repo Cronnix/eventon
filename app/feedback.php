@@ -74,7 +74,7 @@
 					$comment = mysql_real_escape_string($_POST['comment']);
 					$eventid = $_POST['eventid'];
 
-					$insert_query = "INSERT INTO tbl_feedback (feedback_grade, feedback_com, user_id, event_id) VALUES ('$grade', '$comment', $userid, $eventid)";
+					$insert_query = "INSERT INTO tbl_feedback (feedback_grade, feedback_com, user_id, course_id) VALUES ('$grade', '$comment', $userid, $eventid)";
 					var_dump($insert_query);
 					mysql_query($insert_query) or die (mysql_error());
 
@@ -111,12 +111,13 @@
 					<p>Existing feedback for this user:</p>
 					<table id="feedbackTable">
 					<?php
-					$feedback_q = "SELECT * FROM feedback WHERE user_id = 'user_id";
+					$feedback_q = "SELECT * FROM tbl_feedback WHERE user_id = $userid";
 					$feedbackResult = mysql_query($feedback_q);
+					var_dump($feedback_q);
 
 					while ($feedbackRow = mysql_fetch_array($feedbackResult)) {
-						$f_com = $feedbackRow['comment'];
-						$f_grade = $feedbackRow['grade'];
+						$f_com = $feedbackRow['feedback_com'];
+						$f_grade = $feedbackRow['feedback_grade'];
 
 						echo "<tr>
 							  <td>$f_grade</td>
