@@ -8,27 +8,7 @@ include 'functions/block_event/dbconnect.php';
 	<link rel="stylesheet" href="assets/style/normalize.css">
 	<link rel="stylesheet" href="assets/style/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/style/main.css">
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script>
-		$(document).ready(function(){
-		$("#startDate").datepicker({
-			minDate: 0,
-			numberOfMonths: 2,
-			onSelect: function(selected) {
-			  $("#endDate").datepicker("option","minDate", selected)
-			}
-		});
-		$("#endDate").datepicker({ 
-			minDate: 0,
-			numberOfMonths: 2,
-			onSelect: function(selected) {
-			   $("#startDate").datepicker("option", selected)
-			}
-		});  
-		});
-	</script>
+	<script src="assets/js/delete.js"></script>
 </head>
 <body>
 	<div class="container-full">
@@ -43,7 +23,7 @@ include 'functions/block_event/dbconnect.php';
 					<span><span class="glyphicon glyphicon-lock"></span>Logged in as <strong>Sebastian</strong></span>
 				</div>
 				<ul class="button-nav">
-					
+					<li><a href="new_block.php"><button class="btn btn-success">Create New Block</button></a>
 				</ul>
 			</div>
 		</div>
@@ -53,7 +33,7 @@ include 'functions/block_event/dbconnect.php';
 					<h3>Management</h3>
 					<nav>
 						<ul>
-							<li class="current"><span class="glyphicon glyphicon-star"></span><a href="blocks.php">Blocks</a></li>
+							<li class="current"><span class="glyphicon glyphicon-star"></span><a href="#">Blocks</a></li>
 							<li ><a href="#"><span class="glyphicon glyphicon-user"></span>Users</a></li>
 							<li><a href="events.php"><span class="glyphicon glyphicon-time"></span>Events</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-envelope"></span>E-mails</a></li>
@@ -68,21 +48,45 @@ include 'functions/block_event/dbconnect.php';
 				</aside>
 			</div>
 			<div id="content" class="col-md-9">
-				<h2>Create New Block</h2>
-				<form id="blockform" name="blockform" action="functions/block_event/block_event_db.php?function=newBlock"  method="POST">
-					<label for="BlockName">
-						<input type="text" id="block_name" name="block_name" placeholder="BlockName">
-					</label>
-					<label for="StartDate">
-						<input type="text" id="startDate" name="block_startdate" placeholder="StartDate">
-					</label>
-					<label for="EndDate">
-						<input type="text" id="endDate" name="block_enddate" placeholder="EndDate">
-					</label>
-					<input type="submit" class="btn btn-success" value="SAVE">
-				</form>
+				<h2>Listing All Blocks</h2>
+				<table id="blocks">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Block Name</th>
+							<th>Start Date</th>
+							<th>End Date</th>
+							<th>Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$query ="SELECT * FROM tbl_block ORDER By block_id DESC";
+						$result = mysql_query($query) or die ();
+
+						while($row = mysql_fetch_array($result)){
+							$block_id = $row["block_id"];
+							$block_name = $row['block_name']; 
+							$block_startdate = $row["block_startdate"]; 
+							$block_enddate = $row['block_enddate'];
+						  ?>
+						  <tr>
+							<td><?php echo $block_id; ?></td>
+							<td><a href="block_edit.php?block_id=<?php echo $block_id?>"> <?php echo $block_name; ?></a></td>
+							<td><?php echo $block_startdate; ?></td>
+							<td><?php echo $block_enddate; ?></td>
+							<td><button class="btn btn-success" onclick="blockDelete(<?php echo $block_id;?>)">Delete</button> </td>
+						  </tr>
+						  <?php
+						}
+						mysql_free_result($result);
+						mysql_close();
+						?>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
+	<script src="assets/js/jquery-2.0.3.min.js"></script>
 </body>
 </html>

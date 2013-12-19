@@ -1,5 +1,5 @@
 <?php   
-require_once('dbconnect.php');
+include 'dbconnect.php';
 
 //Blocks
 
@@ -21,7 +21,7 @@ require_once('dbconnect.php');
 		echo($insert_query);
 		mysql_query($insert_query) or die (mysql_error());
 		
-		header("location:../../block_list.php?course=$course");
+		header("location:../../blocks.php");
 	}
 	if ($function == "updateBlock") {
 		if(isset($_GET['block_id'])){
@@ -38,7 +38,7 @@ require_once('dbconnect.php');
 			
 			$qry=mysql_query("UPDATE tbl_block SET block_name='$block_name',block_startdate='$block_startdate',block_enddate='$block_enddate' WHERE block_id='$block_id'");
 			if($qry){
-			header("location:../../block_list.php?block_id=$block_id");
+			header("location:../../blocks.php");
 			}
 			else
 			{   
@@ -54,7 +54,7 @@ require_once('dbconnect.php');
 		mysql_query($delete_query) or die (mysql_error());
   
 		//skickar till articlelist
-		header("location:../../block_list.php");
+		header("location:../../blocks.php");
 	}
 //Events
 
@@ -75,7 +75,7 @@ require_once('dbconnect.php');
 		echo($insert_query);
 		mysql_query($insert_query) or die (mysql_error());
   
-		header("location:../../event_list.php?");
+		header("location:../../events.php?");
 	}
 	if ($function == "updateEvent") {
 		if(isset($_GET['event_id'])){
@@ -92,7 +92,7 @@ require_once('dbconnect.php');
 			
 			$qry=mysql_query("UPDATE tbl_event SET course_name='$course_name',event_startdate='$event_startdate',event_enddate='$event_enddate' WHERE event_id='$event_id'");
 			if($qry){
-			header("location:../../event_list.php?event_id=$event_id");
+			header("location:../../events.php");
 			}
 			else
 			{   
@@ -109,8 +109,7 @@ require_once('dbconnect.php');
 		mysql_query($delete_query) or die (mysql_error());
   
 		//skickar till articlelist
-		header("location:../../event_list.php");
-	<?php mysql_close(); ?>
+		header("location:../../events.php");
 	}
-  
+  mysql_close();
 ?>
