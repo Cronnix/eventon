@@ -35,5 +35,5 @@ if ($_SESSION['loggedin'] == false) {
 	header("location:../../index.php?");
 	}
 	}	
-	<?php mysql_close(); ?>
+	mysql_close();
 ?>

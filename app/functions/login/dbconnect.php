@@ -1,8 +1,8 @@
 <?php
-$db_username="wukwebbi_grupp3";
-$db_password="weeho549";
-$database="wukwebbi_grupp3_2";
-$host="wuk.web.bitcloud.se";
+$db_username="sql425233";
+$db_password="tC7!qD6*";
+$database="sql425233";
+$host="sql4.freemysqlhosting.net";
 
 $db = mysql_connect($host, $db_username, $db_password);
 mysql_select_db($database, $db) or die ();
