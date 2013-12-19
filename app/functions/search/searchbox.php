@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<!-- Alexander timm -->
+<!DOCTYPE html>
 <?php 
 $db_username="sql425233";
 $db_password="tC7!qD6*";
@@ -8,6 +9,7 @@ $host="sql4.freemysqlhosting.net";
 $connection = mysql_connect($host, $db_username, $db_password);
 mysql_select_db($database, $connection) or die ();
 ?>
+
 <html lang="en">
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +38,7 @@ mysql_select_db($database, $connection) or die ();
 			<div id="leftbar" class="col-md-3">
 				<aside>
 					<h3>Management</h3>
+					<table>
 					<nav>
 						<ul>
 							<li><span class="glyphicon glyphicon-star"></span><a href="#">Blocks</a></li>
@@ -44,6 +47,7 @@ mysql_select_db($database, $connection) or die ();
 							<li><a href="#"><span class="glyphicon glyphicon-envelope"></span>E-mails</a></li>
 						</ul>
 					</nav>
+				</table>
 					<form action="searchbox.php"method="post" id="search">
 						<fieldset>
 							<input type="search" name="search" placeholder="Search for a user...">
@@ -67,32 +71,34 @@ if(isset($_POST['search'])) {
 	$searchq = preg_replace("#[^0-9a-z]#i","",$searchq);
 
 
-	 $query = "SELECT * FROM tbl_user WHERE user_firstname LIKE '$searchq' OR user_lastname LIKE '$searchq' OR user_phonenumber LIKE '$searchq' OR user_email LIKE '$searchq'";
-                        $result = mysql_query($query) or die("Could not search");
-                        var_dump($query);
- 
-	}
+	$query = "SELECT * FROM tbl_user WHERE user_firstname LIKE '$searchq' OR user_lastname LIKE '$searchq' OR user_phonenumber LIKE '$searchq' OR user_email LIKE '$searchq'";
+    $result = mysql_query($query) or die("Could not search");
+                   
+ }
 
 		while($row = mysql_fetch_array($result)) {
-			$id = $row['user_id'];
-			$fname = $row['user_firstname'];
-			$lname = $row['user_lastname'];
-			$email = $row['user_email'];
-			$phone = $row['user_phonenumber'];
+		$id = $row['user_id'];
+		$fname = $row['user_firstname'];
+		$lname = $row['user_lastname'];
+		$email = $row['user_email'];
+		$phone = $row['user_phonenumber'];
 
-			$output .= '<div>'.$fname.' '.$lname.' '.$email.' '.$phone.'</div>';
+		$output .= '<div>'.$fname.' '.$lname.' '.$email.' '.$phone.'</div>';
 
 		}
 }
 ?>
+
 <?php
  mysql_close($connection);
   ?>
+
 	<?php
 
 			print("$output");
 
 		?>
+
 					</thead>
 					<tbody>
 						
