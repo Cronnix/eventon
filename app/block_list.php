@@ -41,5 +41,6 @@ require_once('functions/block_event/dbconnect.php');
 	<a href="new_block.php">New block</a>
   </table>
 </div>
+<?php mysql_close(); ?>
 </body>
 </html>

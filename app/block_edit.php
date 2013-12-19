@@ -68,5 +68,6 @@ if(isset($_GET['block_id'])) //kollar om man fått in blogg_id
 ?>
 			<input type="submit" value="SAVE">
 	  </form>
+<?php mysql_close(); ?>
 </body>
 </html>

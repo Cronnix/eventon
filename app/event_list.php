@@ -53,5 +53,6 @@ require_once('functions/block_event/dbconnect.php');
 	<br>
   </table>
 </div>
+<?php mysql_close(); ?>
 </body>
 </html>

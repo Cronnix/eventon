@@ -55,5 +55,6 @@ if(isset($_GET['event_id'])) //kollar om man fått in event_id
 		</label>
 			<input type="submit" value="SAVE">
 	  </form>
+<?php mysql_close(); ?>
 </body>
 </html>

@@ -45,18 +45,6 @@ require_once('functions/block_event/dbconnect.php');
 	  </form>
 <a href="block_list.php">blocklist</a>
 
-<!--<?php/*
-	$query ="SELECT * FROM tbl_event";
-	$result = mysql_query($query) or die (mysql_error());
-
-
-	while($row = mysql_fetch_assoc($result)) {
-		$event_id=$row["event_id"];
-		$course_name=$row["course_name"];
-		echo "<input type='checkbox' name='checkboxes[]' value='$event_id'>$course_name";
-	}
-
-	mysql_free_result($result);
-*/?>-->
+<?php mysql_close(); ?>
 </body>
 </html>

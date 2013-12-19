@@ -62,5 +62,6 @@ require_once('functions/block_event/dbconnect.php');
 			<input type="submit" value="SAVE">
 	  </form>
 <a href="event_list.php">eventlist</a>
+<?php mysql_close(); ?>
 </body>
 </html>

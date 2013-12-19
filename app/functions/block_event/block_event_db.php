@@ -110,6 +110,7 @@ require_once('dbconnect.php');
   
 		//skickar till articlelist
 		header("location:../../event_list.php");
+	<?php mysql_close(); ?>
 	}
   
 ?>
