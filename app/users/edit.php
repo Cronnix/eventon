@@ -3,6 +3,7 @@
  * @author Sebastian Westberg <sebastianostbrink@gmail.com>
  */
 
+require_once('../functions/login/loggedin.php');
 require_once('../classes/user/user.php');
 
 $id = is_numeric($_REQUEST['id']) ? $_REQUEST['id'] : false; 
@@ -29,11 +30,14 @@ if ( ! empty($_POST['editUser']))
 		$id,
 		true
 	);
+
 }
 if ($id)
 {
 	$user = new Classtration\User;
 	foreach ($user->view($id) as $viewUser);
+
+	$usertypes = $user->get_usertypes();
 }
 ?>
 <!DOCTYPE html>
@@ -89,7 +93,15 @@ if ($id)
 						<input type="text" name="ssn" id="ssn" placeholder="Social security number" value="<?php echo $viewUser->user_ssn ? $viewUser->user_ssn : '';?>">
 						<input type="text" name="email" id="email" placeholder="E-mail" value="<?php echo $viewUser->user_email ? $viewUser->user_email : '';?>">
 						<input type="text" name="phone" id="phone" placeholder="Phone" value="<?php echo $viewUser->user_phonenumber ? $viewUser->user_phonenumber : '';?>">
-						<input type="text" name="type" id="type" placeholder="Type" value="<?php echo $viewUser->usertype_id ? $viewUser->usertype_id : ''; ?>">
+						<select name="type">
+							<?php
+							foreach ($usertypes as $usertype) :
+							?>
+							<option value="<?php echo $usertype->usertype_id; ?>" <?php echo $usertype->usertype_id == $viewUser->usertype_id ? 'selected="selected"' : ''  ?>><?php echo $usertype->usertype_name; ?></option>
+							<?php
+							endforeach;
+							?>
+						</select>
 						<div class="btn-nav">
 							<input type="submit" name="editUser" class="btn btn-primary" id="editUser" value="Save User">
 							<button class="btn btn-default">Edit User Role</button>

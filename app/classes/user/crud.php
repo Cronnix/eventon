@@ -244,4 +244,38 @@ class User_Crud extends User_Base
 			return false;
 		}
 	}
+
+	/**
+	 * Returns all user types
+	 * @param  int    $id  user id
+	 * @return object
+	 */
+	public function get_usertypes()
+	{
+		$db = $this->db;
+
+		try 
+		{
+			$sth = $db->prepare("
+				SELECT * 
+				FROM tbl_usertype
+			");
+			$sth->execute();
+
+			$sth->setFetchMode(\PDO::FETCH_OBJ);
+		}
+		catch (\PDOException $e)
+		{
+			die($e->getMessage());
+		}
+
+		$result = array();
+
+		while ($obj = $sth->fetch())
+		{
+			$result[] = (object)$obj;
+		}
+
+		return $result;
+	}
 }
