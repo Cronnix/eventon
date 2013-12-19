@@ -41,6 +41,12 @@ class User_Crud extends User_Base
 		unset($user->hash);
 		unset($user->validation);
 
+		// Send e-mail with login information to the user
+		require_once('functions/mail/mail.php');
+
+		// Can't send mail without a mail server setup
+		//generateMail($user->email, $user->username, $user->password);
+
 		return $user;
 	}
 
@@ -99,6 +105,9 @@ class User_Crud extends User_Base
 			{
 				die($e->getMessage());
 			}
+
+			// Takes the user back to the previous page
+			header("Location: {$_SERVER['HTTP_REFERER']}");
 		}
 	}
 

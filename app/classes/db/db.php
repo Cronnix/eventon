@@ -7,10 +7,10 @@ namespace Classtration;
 
 class Db 
 {
-	private $host = 'localhost';
-	private $dbname = 'wukwebbi_grupp3_2';
-	private $user = 'root';
-	private $password = '';
+	private $host = 'sql4.freemysqlhosting.net';
+	private $dbname = 'sql425233';
+	private $user = 'sql425233';
+	private $password = 'tC7!qD6*';
 
 	public function connect()
 	{

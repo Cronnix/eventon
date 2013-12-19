@@ -7,6 +7,13 @@ body {
   overflow: hidden;
 }
 
+.btn-nav {
+    display: block;
+}
+.btn-nav button {
+    display: inline;
+}
+
 h3 {
     font-size: 1.4em;
 }
@@ -36,9 +43,6 @@ table thead tr th {
 table tbody tr td {
 	background-color: #fff;	
 	border-bottom: 1px solid #e1e1e1;
-}
-.btn {
-	display: block;
 }
 input[type="text"] {
 	margin-bottom: 10px;
@@ -157,6 +161,9 @@ input[type="search"]:focus {
 	border: 1px solid #d5d5d5;
 	background: #fff;
 	padding: 10px;
+}
+.glyphicon-remove {
+    color: #da6b3f;
 }
 
 @media (min-width: 320px) {
