@@ -38,7 +38,7 @@ class User_Crud extends User_Base
 
 		// Don't return the Db object, password hash or validation options
 		unset($user->db);
-		//unset($user->hash);
+		unset($user->hash);
 		unset($user->validation);
 
 		// Send e-mail with login information to the user
