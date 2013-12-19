@@ -38,7 +38,7 @@ include 'functions/login/dbconnect.php';
 					<nav>
 						<ul>
 							<li><span class="glyphicon glyphicon-star"></span><a href="blocks.php">Blocks</a></li>
-							<li ><a href="#"><span class="glyphicon glyphicon-user"></span>Users</a></li>
+							<li ><a href="users/view.php"><span class="glyphicon glyphicon-user"></span>Users</a></li>
 							<li><a href="events.php"><span class="glyphicon glyphicon-time"></span>Events</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-envelope"></span>E-mails</a></li>
 						</ul>

@@ -60,7 +60,7 @@ if(isset($_GET['event_id'])) //kollar om man fått in event_id
 			</div>
 			<div id="action-bar" class="col-md-9 clearfix">
 				<div class="admin-info pull-right">
-					<span><span class="glyphicon glyphicon-lock"></span>Logged in as <strong>Sebastian</strong></span>
+					<span><span class="glyphicon glyphicon-lock"></span>Logged in as <strong><?php echo $_SESSION['user_username']; ?></strong></span>
 				</div>
 				<ul class="button-nav">
 					
@@ -74,7 +74,7 @@ if(isset($_GET['event_id'])) //kollar om man fått in event_id
 					<nav>
 						<ul>
 							<li><span class="glyphicon glyphicon-star"></span><a href="blocks.php">Blocks</a></li>
-							<li ><a href="#"><span class="glyphicon glyphicon-user"></span>Users</a></li>
+							<li ><a href="users/view.php"><span class="glyphicon glyphicon-user"></span>Users</a></li>
 							<li class="current"><a href="events.php"><span class="glyphicon glyphicon-time"></span>Events</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-envelope"></span>E-mails</a></li>
 						</ul>
