@@ -29,9 +29,9 @@
 					<h3>Management</h3>
 					<nav>
 						<ul>
-							<li><span class="glyphicon glyphicon-star"></span><a href="#">Blocks</a></li>
-							<li class="current"><a href="#"><span class="glyphicon glyphicon-user"></span>Users</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-time"></span>Events</a></li>
+							<li><span class="glyphicon glyphicon-star"></span><a href="blocks.php">Blocks</a></li>
+							<li class="current"><a href="viewUsers.php"><span class="glyphicon glyphicon-user"></span>Users</a></li>
+							<li><a href="events.php"><span class="glyphicon glyphicon-time"></span>Events</a></li>
 							<li><a href="#"><span class="glyphicon glyphicon-envelope"></span>E-mails</a></li>
 						</ul>
 					</nav>
@@ -75,7 +75,6 @@
 					$eventid = $_POST['eventid'];
 
 					$insert_query = "INSERT INTO tbl_feedback (feedback_grade, feedback_com, user_id, course_id) VALUES ('$grade', '$comment', $userid, $eventid)";
-					var_dump($insert_query);
 					mysql_query($insert_query) or die (mysql_error());
 
 					$message = "Feedback added!";
@@ -113,7 +112,6 @@
 					<?php
 					$feedback_q = "SELECT * FROM tbl_feedback WHERE user_id = $userid";
 					$feedbackResult = mysql_query($feedback_q);
-					var_dump($feedback_q);
 
 					while ($feedbackRow = mysql_fetch_array($feedbackResult)) {
 						$f_com = $feedbackRow['feedback_com'];
