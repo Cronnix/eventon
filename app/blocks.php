@@ -28,7 +28,8 @@ include 'functions/block_event/dbconnect.php';
 					<span><span class="glyphicon glyphicon-lock"></span>Logged in as <strong>Sebastian</strong></span>
 				</div>
 				<ul class="button-nav">
-					<li><a href="new_block.php"><button class="btn btn-success">Create New Block</button></a>
+					<li><a href="new_block.php"><button class="btn btn-success">Create New Block</button></a><a href="userBlock.php"><button class="btn btn-success">Add User To Block</button></a>
+
 				</ul>
 			</div>
 		</div>
