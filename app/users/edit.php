@@ -6,7 +6,7 @@
 //require_once('../functions/login/loggedin.php');
 require_once('../classes/user/user.php');
 
-$id = is_numeric($_REQUEST['id']) ? $_REQUEST['id'] : false; 
+$id = isset($_REQUEST['id']) && is_numeric($_REQUEST['id']) ? $_REQUEST['id'] : false; 
 
 if ( ! empty($_POST['editUser']))
 {
@@ -87,17 +87,17 @@ if ($id)
 			<div id="content" class="col-md-9">
 				<h2>Editing user</h2>
 				<div class="entry">
-					<form method="post" action="<?php echo $_SERVER['self']; ?>">
-						<input type="text" name="fname" id="fname" placeholder="First name" value="<?php echo $viewUser->user_firstname ? $viewUser->user_firstname : '';?>">
-						<input type="text" name="lname" id="lname" placeholder="Last name" value="<?php echo $viewUser->user_lastname ? $viewUser->user_lastname : '';?>">
-						<input type="text" name="ssn" id="ssn" placeholder="Social security number" value="<?php echo $viewUser->user_ssn ? $viewUser->user_ssn : '';?>">
-						<input type="text" name="email" id="email" placeholder="E-mail" value="<?php echo $viewUser->user_email ? $viewUser->user_email : '';?>">
-						<input type="text" name="phone" id="phone" placeholder="Phone" value="<?php echo $viewUser->user_phonenumber ? $viewUser->user_phonenumber : '';?>">
+					<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+						<input type="text" name="fname" id="fname" placeholder="First name" value="<?php echo isset($_POST["fname"]) ? $_POST["fname"] : '';?>">
+						<input type="text" name="lname" id="lname" placeholder="Last name" value="<?php echo isset($_POST["lname"]) ? $_POST["lname"] : '';?>">
+						<input type="text" name="ssn" id="ssn" placeholder="Social security number" value="<?php echo isset($_POST["ssn"]) ? $_POST["ssn"] : '';?>">
+						<input type="text" name="email" id="email" placeholder="E-mail" value="<?php echo isset($_POST["email"]) ? $_POST["email"] : '';?>">
+						<input type="text" name="phone" id="phone" placeholder="Phone" value="<?php echo isset($_POST["phone"]) ? $_POST["phone"] : '';?>">
 						<select name="type">
 							<?php
 							foreach ($usertypes as $usertype) :
 							?>
-							<option value="<?php echo $usertype->usertype_id; ?>" <?php echo $usertype->usertype_id == $viewUser->usertype_id ? 'selected="selected"' : ''  ?>><?php echo $usertype->usertype_name; ?></option>
+							<option value="<?php echo $usertype->usertype_id; ?>" <?php echo isset($viewUser->usertype_id) && $usertype->usertype_id == $viewUser->usertype_id ? 'selected="selected"' : ''  ?>><?php echo $usertype->usertype_name; ?></option>
 							<?php
 							endforeach;
 							?>
@@ -106,7 +106,7 @@ if ($id)
 							<input type="submit" name="editUser" class="btn btn-primary" id="editUser" value="Save User">
 							<button class="btn btn-default">Edit User Role</button>
 							<button class="btn btn-default">Generate New Password</button> 
-							<button class="btn btn-default"><a href="../feedback.php?userid=<?php echo is_numeric($_GET['id']) ? $_GET['id'] : 1; ?>">Feedback</a></button> 
+							<button class="btn btn-default"><a href="../feedback.php?userid=<?php echo isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : 1; ?>">Feedback</a></button> 
 						</div>
 					</form>
 				</div>

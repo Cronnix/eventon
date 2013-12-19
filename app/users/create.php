@@ -91,17 +91,17 @@ if ( ! empty($_POST['addUser']))
 				?>
 				<h2>Create a New User</h2>
 				<div class="entry">
-					<form method="post" action="<?php echo $_SERVER['self']; ?>">
-						<input type="text" name="fname" id="fname" placeholder="First name" value="<?php echo $_POST["fname"] ?: $_POST["fname"];?>">
-						<input type="text" name="lname" id="lname" placeholder="Last name" value="<?php echo $_POST["lname"] ?: $_POST["lname"];?>">
-						<input type="text" name="ssn" id="ssn" placeholder="Social security number" value="<?php echo $_POST["ssn"] ?: $_POST["ssn"];?>">
-						<input type="text" name="email" id="email" placeholder="E-mail" value="<?php echo $_POST["email"] ?: $_POST["email"];?>">
-						<input type="text" name="phone" id="phone" placeholder="Phone" value="<?php echo $_POST["phone"] ?: $_POST["phone"];?>">
+					<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+						<input type="text" name="fname" id="fname" placeholder="First name" value="<?php echo isset($_POST["fname"]) ? $_POST["fname"] : '';?>">
+						<input type="text" name="lname" id="lname" placeholder="Last name" value="<?php echo isset($_POST["lname"]) ? $_POST["lname"] : '';?>">
+						<input type="text" name="ssn" id="ssn" placeholder="Social security number" value="<?php echo isset($_POST["ssn"]) ? $_POST["ssn"] : '';?>">
+						<input type="text" name="email" id="email" placeholder="E-mail" value="<?php echo isset($_POST["email"]) ? $_POST["email"] : '';?>">
+						<input type="text" name="phone" id="phone" placeholder="Phone" value="<?php echo isset($_POST["phone"]) ? $_POST["phone"] : '';?>">
 						<select name="type">
 							<?php
 							foreach ($usertypes as $usertype) :
 							?>
-							<option value="<?php echo $usertype->usertype_id; ?>" <?php echo $usertype->usertype_id == $viewUser->usertype_id ? 'selected="selected"' : ''  ?>><?php echo $usertype->usertype_name; ?></option>
+							<option value="<?php echo $usertype->usertype_id; ?>" <?php echo isset($viewUser->usertype_id) && $usertype->usertype_id == $viewUser->usertype_id ? 'selected="selected"' : ''  ?>><?php echo $usertype->usertype_name; ?></option>
 							<?php
 							endforeach;
 							?>

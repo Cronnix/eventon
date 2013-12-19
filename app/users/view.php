@@ -9,7 +9,7 @@ session_start();
 // require_once('../functions/login/loggedin.php');
 require_once('../classes/user/user.php');
 
-$id = is_numeric($_REQUEST['id']) ? $_REQUEST['id'] : false; 
+$id = isset($_REQUEST['id']) && is_numeric($_REQUEST['id']) ? $_REQUEST['id'] : false; 
 $users = new Classtration\User;
 
 ?>
@@ -79,6 +79,8 @@ $users = new Classtration\User;
 $view = $id ? $users->view($id) : $users->view();
 
 foreach ($view as $user) :
+	// Get block name if a block exist for this user
+	$blockname = $users->get_block($user->program_id) !== false ? $users->get_block($user->program_id)->block_name : '';
 ?>
 	<tr>
 		<td><?php echo $user->user_id; ?></td>
@@ -87,7 +89,7 @@ foreach ($view as $user) :
 		<td><?php echo $user->user_ssn; ?></td>
 		<td><?php echo $user->user_username; ?></td>
 		<td><?php echo $user->user_email; ?></td>
-		<td><?php echo $users->get_block($user->program_id)->block_name; ?></td>
+		<td><?php echo $blockname ?></td>
 		<td><a href="delete.php?id=<?php echo $user->user_id; ?>"><span class="glyphicon glyphicon-remove"></span></a></td>
 	</tr>
 <?php
