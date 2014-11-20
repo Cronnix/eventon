@@ -1,4 +1,4 @@
-Eventon - a simple event managing system. It is written in HTML, bootstrap, PHP and SQL. User data is salted and hashed.
+Eventon - a flexible event managing system. It is written in HTML, bootstrap, PHP and SQL. User data is salted and hashed.
 
 Was a part of our education practice, we were tasked with making a system for our school that would keep track of students, courses and programs. The initial system design was very limiting, as the system was only designed to handle the above scenarios consisting of students and classes, so I took it a step further – by designing a system that could be used for any kind of booking and event managing activity. 
 
